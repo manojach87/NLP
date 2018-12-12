@@ -11,7 +11,9 @@ stopwords = nltk.corpus.stopwords.words('english')
 
 
 xDIR = 'C:/Users/V574361/Documents/bigdata/files'
-synopses=[open(os.path.join(xDIR,os.listdir(xDIR)[1]), encoding="utf8").read()]
+synopses=[]
+synopses.append(open(os.path.join(xDIR,os.listdir(xDIR)[0]), encoding="utf8").read())
+synopses.append(open(os.path.join(xDIR,os.listdir(xDIR)[1]), encoding="utf8").read())
 
 from nltk.stem.snowball import SnowballStemmer
 stemmer = SnowballStemmer("english")
@@ -78,11 +80,40 @@ vocab_frame=test(synopses[0])
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=200000,
-                                 min_df=0.2, stop_words='english',
+tfidf_vectorizer = TfidfVectorizer(max_df=1.0, max_features=200000,
+                                 min_df=0.1, stop_words='english',
                                  use_idf=True, tokenizer=tokenize_and_stem, ngram_range=(1,3))
 
 #%time 
 tfidf_matrix = tfidf_vectorizer.fit_transform(synopses) #fit the vectorizer to synopses
 
-#print(tfidf_matrix.shape)
+# print(tfidf_matrix.shape)
+
+terms = tfidf_vectorizer.get_feature_names()
+
+from sklearn.metrics.pairwise import cosine_similarity
+dist = 1 - cosine_similarity(tfidf_matrix)
+
+from sklearn.cluster import KMeans
+
+num_clusters = 2
+
+km = KMeans(n_clusters=num_clusters)
+
+km.fit(tfidf_matrix)
+
+clusters = km.labels_.tolist()
+
+from sklearn.externals import joblib
+
+#uncomment the below to save your model 
+#since I've already run my model I am loading from the pickle
+
+#
+joblib.dump(km,  'doc_cluster.pkl')
+
+km = joblib.load('doc_cluster.pkl')
+clusters = km.labels_.tolist()
+
+
+
