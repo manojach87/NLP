@@ -17,7 +17,7 @@ synopses=[]
 i=0
 for f in os.listdir(xDIR):
     #print(f)
-    if i<10 :
+    if i<3 :
         titles.append(f)
         synopses.append(open(os.path.join(xDIR,f), encoding="utf8").read())
         i=i+1
@@ -67,7 +67,7 @@ def test1(synopses):
         allwords_tokenized = tokenize_only(i)
         totalvocab_tokenized.extend(allwords_tokenized)
         
-    vocab_frame = pd.DataFrame({'words': totalvocab_tokenized}, index = totalvocab_stemmed)
+    vframe = pd.DataFrame({'words': totalvocab_tokenized}, index = totalvocab_stemmed)
     # print('there are ' + str(vocab_frame.shape[0]) + ' items in vocab_frame')
     return [totalvocab_stemmed,totalvocab_tokenized]
 
@@ -82,9 +82,9 @@ def test(synopses):
     allwords_tokenized = tokenize_only(synopses)
     totalvocab_tokenized.extend(allwords_tokenized)
         
-    vocab_frame = pd.DataFrame({'words': totalvocab_tokenized}, index = totalvocab_stemmed)
+    vframe = pd.DataFrame({'words': totalvocab_tokenized}, index = totalvocab_stemmed)
     # print('there are ' + str(vocab_frame.shape[0]) + ' items in vocab_frame')
-    return vocab_frame
+    return vframe
     #[totalvocab_stemmed,totalvocab_tokenized]
     
 
