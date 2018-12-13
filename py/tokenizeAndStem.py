@@ -211,10 +211,10 @@ cluster_colors = {0: '#1b9e77', 1: '#d95f02', 2: '#7570b3', 3: '#e7298a', 4: '#6
 
 #set up cluster names using a dict
 cluster_names = {0: 'Family, home, salary', 
-                 1: 'Police, killed, murders', 
+                 1: 'Business, skilled, motivation', 
                  2: 'Friend, Father, New York, brothers', 
                  3: 'Dance, singing, love, Humor, Humour', 
-                 4: 'Killed, soldiers, captain'}
+                 4: 'Salary, work, wage'}
 
 #some ipython magic to show the matplotlib plots inline
 # %matplotlib inline 
