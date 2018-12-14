@@ -13,24 +13,15 @@ stopwords = nltk.corpus.stopwords.words('english')
 
 xDIR = 'C:/Users/V574361/Documents/bigdata/files'
 titles=[]
-synopses=[]
+corpus=[]
 i=0
 for f in os.listdir(xDIR):
-    #print(f)
-    #if i<100 :
     titles.append(f)
-    synopses.append(open(os.path.join(xDIR,f), encoding="utf8").read())
+    corpus.append(open(os.path.join(xDIR,f), encoding="utf8").read())
     i=i+1
-
-#titles.append(os.path.join(xDIR,os.listdir(xDIR)[0]))
-#titles.append(os.path.join(xDIR,os.listdir(xDIR)[1]))
-
-#synopses.append(open(os.path.join(xDIR,os.listdir(xDIR)[0]), encoding="utf8").read())
-#synopses.append(open(os.path.join(xDIR,os.listdir(xDIR)[1]), encoding="utf8").read())
 
 from nltk.stem.snowball import SnowballStemmer
 stemmer = SnowballStemmer("english")
-
 
 def tokenize_and_stem(text):
     # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
@@ -57,11 +48,11 @@ def tokenize_only(text):
 
 #not super pythonic, no, not at all.
 #use extend so it's a big flat list of vocab
-def test1(synopses):
+def test1(corpus):
     totalvocab_stemmed = []
     totalvocab_tokenized = []
-    for i in synopses:
-        allwords_stemmed = tokenize_and_stem(i) #for each item in 'synopses', tokenize/stem
+    for i in corpus:
+        allwords_stemmed = tokenize_and_stem(i) #for each item in 'corpus', tokenize/stem
         totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
         
         allwords_tokenized = tokenize_only(i)
@@ -73,13 +64,13 @@ def test1(synopses):
 
 
 
-def test(synopses):
+def test(corpus):
     totalvocab_stemmed = []
     totalvocab_tokenized = []
-    allwords_stemmed = tokenize_and_stem(synopses) #for each item in 'synopses', tokenize/stem
+    allwords_stemmed = tokenize_and_stem(corpus) #for each item in 'corpus', tokenize/stem
     totalvocab_stemmed.extend(allwords_stemmed) #extend the 'totalvocab_stemmed' list
         
-    allwords_tokenized = tokenize_only(synopses)
+    allwords_tokenized = tokenize_only(corpus)
     totalvocab_tokenized.extend(allwords_tokenized)
         
     vframe = pd.DataFrame({'words': totalvocab_tokenized}, index = totalvocab_stemmed)
@@ -91,7 +82,7 @@ def test(synopses):
 def checkDF(key,dframe):
     return key in dframe.index
 
-vocab_frame=test(synopses[0])
+vocab_frame=test(corpus[0])
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -101,9 +92,9 @@ tfidf_vectorizer = TfidfVectorizer(max_df=1.0, max_features=200000,
                                  use_idf=True, tokenizer=tokenize_and_stem, ngram_range=(1,3))
 
 #%time 
-tfidf_matrix = tfidf_vectorizer.fit_transform(synopses) #fit the vectorizer to synopses
+tfidf_matrix = tfidf_vectorizer.fit_transform(corpus) #fit the vectorizer to corpus
 
-# print(tfidf_matrix.shape)
+print(tfidf_matrix.shape)
 
 terms = tfidf_vectorizer.get_feature_names()
 terms = list(set(terms))
@@ -132,7 +123,7 @@ joblib.dump(km,  'doc_cluster.pkl')
 km = joblib.load('doc_cluster.pkl')
 clusters = km.labels_.tolist()
 
-docs = { 'title': titles, 'synopsis': synopses, 'cluster': clusters }
+docs = { 'title': titles, 'synopsis': corpus, 'cluster': clusters }
 
 frame = pd.DataFrame(docs, index = [clusters] , columns = ['title', 'cluster'])
 
@@ -147,6 +138,7 @@ frame['cluster'].value_counts()
 print("Top terms per cluster:")
 print()
 #sort cluster centers by proximity to centroid
+w=[]
 order_centroids = km.cluster_centers_.argsort()[:, ::-1] 
 
 for i in range(num_clusters):
@@ -155,6 +147,7 @@ for i in range(num_clusters):
     for ind in order_centroids[i, :10]: #replace 6 with n words per cluster
 
         wordsToPass=terms[ind].split(' ')
+        w.append(wordsToPass)
         for word in wordsToPass:
             if checkDF(word,vocab_frame)==False:
                 wordsToPass = [x for x in wordsToPass if x != word]
@@ -210,10 +203,10 @@ print()
 cluster_colors = {0: '#1b9e77', 1: '#d95f02', 2: '#7570b3', 3: '#e7298a', 4: '#66a61e'}
 
 #set up cluster names using a dict
-cluster_names = {0: 'Family, home, salary', 
-                 1: 'Business, skilled, motivation', 
-                 2: 'Friend, Father, New York, brothers', 
-                 3: 'Dance, singing, love, Humor, Humour', 
+cluster_names = {0: 'organizational, measured, average, variables', 
+                 1: 'low, measured, organizational, sample, graduate, employee, factors', 
+                 2: 'measure, accessed, factors, reputation, organizational, literature, measured', 
+                 3: 'employee, organizational, significantly, measured', 
                  4: 'Salary, work, wage'}
 
 #some ipython magic to show the matplotlib plots inline

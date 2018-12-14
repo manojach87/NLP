@@ -14,7 +14,7 @@ fig, ax = plt.subplots(figsize=(15, 20)) # set size
 ax = dendrogram(linkage_matrix, orientation="right", labels=titles);
 
 plt.tick_params(\
-    axis= 'x',          # changes apply to the x-axis
+    axis= 'x',         # changes apply to the x-axis
     which='both',      # both major and minor ticks are affected
     bottom='off',      # ticks along the bottom edge are off
     top='off',         # ticks along the top edge are off
