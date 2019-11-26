@@ -1,0 +1,30 @@
+
+A. On the internet, find a python notebook/method that can help you generate a number between 1 and 800. (Or ask your friend. Here I care you know how to do it, and you've looked into the texts).
+
+	from random import randrange
+	​print(randrange(1,800))
+	547
+
+B. Use your student id last 5 digits as the seed and generate such a number
+
+	from random import seed
+	from random import randrange
+​
+	seed(56006)
+	print(randrange(1,800))
+	373
+
+373 | employees' emotional labor strategies of deep and surface acting differentially influence customers' service evaluations and customers' accuracy in detecting employees' strategies can intensify this impact.
+374 | The mediating influence of the attributions as well as the importance of information source suggests that proper communication of CSR can be a viable way to inculcate positive corporate associations and purchase intentions.
+375 | 
+376 | the reforms in corporate governance imposed by the Sarbanes-Oxley Act have changed procedures and policies in public corporations. The reforms of this new federal law have quickly changed corporate practices in many corporations. 
+377 | 
+378 | an increasing emphasis on continuous product development promotes shorter durables replacement and disposal cycles with troublesome environmental consequences.
+379 | It is argued that business responsibility with employees' family should be considered as a part of Corporate Social Responsibility. In addition, the applications of these principles and propositions can lead to a mutual enrichment of both business and family.
+380 | Efforts that focus on enforcement and penalizing the buyer, however, never backfire and always lead to more responsible sourcing and less risky sourcing.
+381 | Using a novel measure based on the political contributions by employees of Fortune 500 firms, we find that ideology predicts advances in corporate social responsibility (CSR).
+382 | That is, a truly sustainable supply chain cannot be established without its member corporations' and employees' commitment to and successes in sustainability.
+383 | 
+384 | 
+385 | The company may see a reduction of the price of its shares in the marketplace if it does not protect the economic interests of its shareholders.
+386 | Ethical behavior leads to corporate social, environmental and economic responsibilities, cooperating to the desired sustainability. 
