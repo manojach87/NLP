@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# A. On the internet, find a python notebook/method that can help you generate a number between 1 and 800. (Or ask your friend. Here I care you know how to do it, and you've looked into the texts). \n",
+    "# A. On the internet, find a python notebook/method that can help you generate a number between 1 and 800.",
     "\n"
    ]
   },
@@ -31,7 +31,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# B. Use your student id last 5 digits as the seed and generate such a number "
+    "# B. Use a 5 digit number as the seed and generate such a number "
    ]
   },
   {
