@@ -29,3 +29,4 @@ df.rename_axis('docname')
 cols = list(range(1, 20))
 readTDM=readTDM.drop(readTDM.columns[cols],axis=1)
 readTDM.to_csv(path, sep=',', encoding='utf-8')
+
