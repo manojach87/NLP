@@ -33,3 +33,4 @@ tdm=cereal_df.T
 pd.write_csv(tdm,"C:/Users/V574361/Documents/bigdata/tdm.test1.csv")
 tdm.to_csv("C:/Users/V574361/Documents/bigdata/tdm.test1.csv", sep=',', encoding='utf-8')
 
+
