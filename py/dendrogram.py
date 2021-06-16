@@ -25,3 +25,4 @@ plt.tight_layout() #show plot with tight layout
 #uncomment below to save figure
 plt.savefig('ward_clusters.png', dpi=300) #save figure as ward_clusters
 
+
